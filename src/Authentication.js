@@ -16,13 +16,27 @@ class Authentication extends Component {
 	login(event) {
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
-		console.log(email, password);
-
 		const auth = firebase.auth();
-
 		const promise = auth.signInWithEmailAndPassword(email, password);
 
-		//TODO: Handle login promise
+		promise.then(user => {
+			var greetingsMsg = "Hello " + user.email;
+			var logoutBtn = document.getElementById("logout");
+			var loginBtn = document.getElementById("login");
+			var signupBtn = document.getElementById("signup");
+			var loginInput = document.getElementById("email");
+			var passInput = document.getElementById("pass");
+
+			this.setState({
+				err: greetingsMsg
+			})
+			
+			logoutBtn.classList.remove('hide');
+			loginBtn.classList.add('hide');
+			signupBtn.classList.add('hide');
+			loginInput.classList.add('hide');
+			passInput.classList.add('hide');
+		});
 		promise.catch(e => {
 			var err = e.message;
 			console.log(err);
@@ -33,10 +47,7 @@ class Authentication extends Component {
 	signup(event) {
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
-		console.log(email, password);
-
 		const auth = firebase.auth();
-
 		const promise = auth.createUserWithEmailAndPassword(email, password);
 
 		promise
@@ -54,12 +65,27 @@ class Authentication extends Component {
 			console.log(err);
 			this.setState({err: err});
 		});
-
 	}
 
 	logout(event) {
-		
+		const promise = firebase.auth().signOut();
+		promise.then(user => {
+			var logoutBtn = document.getElementById("logout");
+			var loginBtn = document.getElementById("login");
+			var signupBtn = document.getElementById("signup");
+			var loginInput = document.getElementById("email");
+			var passInput = document.getElementById("pass");
+			
+			logoutBtn.classList.add("hide");
+			loginBtn.classList.remove("hide");
+			signupBtn.classList.remove("hide");
+			loginInput.classList.remove("hide");
+			passInput.classList.remove("hide");
+			this.setState({err:""});
+		});
+
 	}
+
 	constructor(props){
 		super(props);
 	
@@ -76,9 +102,9 @@ class Authentication extends Component {
 				<input id="email" ref="email" type="email" placeholder="Enter your email"/> <br/>
 				<input id="pass" ref="password" type="password" placeholder="Enter your password"/> <br />
 				<p>{this.state.err}</p>
-				<button onClick={this.login}>Login</button>
-				<button onClick={this.signup}>Sign Up</button>
-				<button onClick={this.logout}>Logout</button>
+				<button id="login" onClick={this.login}>Login</button>
+				<button id="signup" onClick={this.signup}>Sign Up</button>
+				<button id="logout" onClick={this.logout} className="hide">Logout</button>
 			</div>
 		)
 	}

@@ -35,24 +35,29 @@ background: linear-gradient(to left, #24C6DC , #514A9D); /* W3C, IE 10+/ Edge, F
 
 
 input[type="email"] {
-  width: 480px;
+  width: 25%;
   margin-top: 20px;
   padding: 10px;
   font-size: 30px;
   border: none;
   border-bottom: solid 2px #c9c9c9;
   transition: border 0.3s;
+  border-radius: 40px;
+  padding: 20px;
+  text-align: center;
 }
 
 input[type="password"] {
-  width: 480px;
+  width: 25%;
   margin-top: 20px;
   padding: 10px;
   font-size: 30px;
-
+  border-radius: 40px;
   border: none;
   border-bottom: solid 2px #c9c9c9;
   transition: border 0.3s;
+  padding: 20px;
+  text-align: center;
 }
 input[type="email"]:focus,
 input[type="password"].focus {
@@ -66,7 +71,10 @@ button {
   padding: 10px 30px;
   margin-top: 20px;
   margin-right: 10px;
-
+  cursor: pointer;
+  border-radius: 40px;
+  border: none;
+  box-sizing: border-box;
 }
 
 p{
