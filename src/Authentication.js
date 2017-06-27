@@ -30,6 +30,36 @@ class Authentication extends Component {
 		});
 	}
 
+	signup(event) {
+		const email = this.refs.email.value;
+		const password = this.refs.password.value;
+		console.log(email, password);
+
+		const auth = firebase.auth();
+
+		const promise = auth.createUserWithEmailAndPassword(email, password);
+
+		promise
+		.then(user => {
+			var err = "Welcome " + user.email;
+			firebase.database().ref('users/' + user.uid).set({
+				email: user.email
+			});
+			console.log(user);
+			this.setState({err: err});
+		});
+		promise
+		.catch(e => {
+			var err = e.message;
+			console.log(err);
+			this.setState({err: err});
+		});
+
+	}
+
+	logout(event) {
+		
+	}
 	constructor(props){
 		super(props);
 	
@@ -37,6 +67,8 @@ class Authentication extends Component {
 			err: ""
 		};
 		this.login = this.login.bind(this);
+		this.signup = this.signup.bind(this);
+		this.logout = this.logout.bind(this);
 	}
 	render() {
 		return(
@@ -45,8 +77,8 @@ class Authentication extends Component {
 				<input id="pass" ref="password" type="password" placeholder="Enter your password"/> <br />
 				<p>{this.state.err}</p>
 				<button onClick={this.login}>Login</button>
-				<button>Sign Up</button>
-				<button>Logout</button>
+				<button onClick={this.signup}>Sign Up</button>
+				<button onClick={this.logout}>Logout</button>
 			</div>
 		)
 	}
