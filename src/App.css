@@ -23,12 +23,10 @@
   to { transform: rotate(360deg); }
 }
 
-body{
+body {
   background: #24C6DC; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #24C6DC , #514A9D); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #24C6DC , #514A9D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
+  background: -webkit-linear-gradient(to left, #24C6DC , #514A9D); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #24C6DC , #514A9D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 
@@ -45,6 +43,8 @@ input[type="email"] {
   border-radius: 40px;
   padding: 20px;
   text-align: center;
+  box-sizing: border-box;
+  height: 55px;
 }
 
 input[type="password"] {
@@ -58,6 +58,8 @@ input[type="password"] {
   transition: border 0.3s;
   padding: 20px;
   text-align: center;
+  box-sizing: border-box;
+  height: 55px;
 }
 input[type="email"]:focus,
 input[type="password"].focus {
@@ -77,11 +79,14 @@ button {
   box-sizing: border-box;
 }
 
-p{
+p {
   color: orange;
   text-decoration: underline;
 }
 
-.hide{
+.hide {
   display: none;
+}
+#google {
+  background-color: #dd4b39;
 }

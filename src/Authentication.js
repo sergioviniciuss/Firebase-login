@@ -86,6 +86,26 @@ class Authentication extends Component {
 
 	}
 
+	google() {
+		var provider = new firebase.auth.GoogleAuthProvider();
+		var promise = firebase.auth().signInWithPopup(provider);
+
+		promise.then( result=> {
+			var user = result.user;
+			console.log(result);
+			firebase.database().ref("users/" + user.uid).set({
+				email: user.email,
+				name: user.displayName
+			});
+		});
+
+		promise.catch( e => {
+			var msg = e.message;
+			console.log(msg);
+			this.setState({err: msg});
+		})
+	}
+
 	constructor(props){
 		super(props);
 	
@@ -95,6 +115,7 @@ class Authentication extends Component {
 		this.login = this.login.bind(this);
 		this.signup = this.signup.bind(this);
 		this.logout = this.logout.bind(this);
+		this.google = this.google.bind(this);
 	}
 	render() {
 		return(
@@ -104,7 +125,8 @@ class Authentication extends Component {
 				<p>{this.state.err}</p>
 				<button id="login" onClick={this.login}>Login</button>
 				<button id="signup" onClick={this.signup}>Sign Up</button>
-				<button id="logout" onClick={this.logout} className="hide">Logout</button>
+				<button id="logout" onClick={this.logout} className="hide">Logout</button> <br />
+				<button id="google" onClick={this.google} className="">Sign In With google </button>
 			</div>
 		)
 	}
